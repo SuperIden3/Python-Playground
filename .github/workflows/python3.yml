@@ -1,0 +1,19 @@
+name: Python 3
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check Repo
+      uses: actions/checkout@v4
+
+    - name: Run With Time
+      run: make time
