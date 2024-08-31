@@ -13,7 +13,11 @@ def printf(*args):
     """Basically `print(..., end=\"\")`"""
     print(*args, end="")
 
-class UInt8:
+def eprint(*args):
+    """Print to stderr."""
+    print(*args, file=sys.stderr)
+
+class uint8:
     def __init__(self, value = 0):
         if not (0 <= value and value <= 255):
             raise ValueError(f"uint8 must be 0 to 255 inclusive, not {value}")
