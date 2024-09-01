@@ -1,13 +1,16 @@
-from typing import Any
 import sys
+import os
 
-def pretty(val: Any):
+from pygments import highlight
+from pygments.formatters import Terminal256Formatter
+from pygments.lexers import PythonLexer
+
+from pprint import pformat
+import sqlite3
+
+def pretty(val):
     """Prettify a value."""
-    from pprint import pformat
-    from pygments import highlight
-    from pygments.formatters import Terminal256Formatter
-    from pygments.lexers import PythonLexer
-    return(highlight(pformat(val).rstrip('\n'), PythonLexer(), Terminal256Formatter()))
+    return highlight(pformat(val).rstrip('\n'), PythonLexer(), Terminal256Formatter())
 
 def printf(*args):
     """Basically `print(..., end=\"\")`"""
@@ -72,4 +75,16 @@ class uint8:
         if isinstance(other, uint8):
             return self._value > other._value
         return False
+
+def create_connection(db_file):
+    """Create a database connection to the SQLite database specified by `db_file`.
+    :param db_file: database file
+    :return: Connection object or None
+    """
+    conn = None
+    try:
+        conn = sqlite3.connect(db_file)
+    except sqlite3.Error as e:
+        eprint(e)
+    return conn
 
