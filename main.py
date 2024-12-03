@@ -1,3 +1,4 @@
+#!/usr/bin/env -S python -OO
 from customs import *
 
 import sys
